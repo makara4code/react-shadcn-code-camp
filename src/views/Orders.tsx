@@ -9,7 +9,7 @@ export default function Orders() {
         </p>
       </div>
 
-      <h1>Add Order Header</h1>
+      <h1>Edit To New Order Header</h1>
     </>
   );
 }
