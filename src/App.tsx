@@ -1,11 +1,13 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import Dashboard from "@/views/Dashboard";
-import Home from "@/views/Home";
-import Login from "@/views/Login";
-import Orders from "@/views/Orders";
+import About from "@/views/www/About";
+import Dashboard from "@/views/app/Dashboard";
+import Home from "@/views/www/Home";
+import Login from "@/views/app/Login";
+import Orders from "@/views/app/Orders";
 import PrivateOutlet from "@/components/outlets/PrivateOutlet";
 import PublicOutlet from "@/components/outlets/PublicOutlet";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 const publicRoutes = [
@@ -17,6 +19,15 @@ const publicRoutes = [
         path: "/",
         element: <Home />,
       },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        // catch not found route
+        path: "*",
+        element: <div>Not found</div>,
+      },
     ],
   },
   {
@@ -27,19 +38,19 @@ const publicRoutes = [
 
 const privateRoutes = [
   {
-    path: "/",
+    path: "/admin",
     element: <PrivateOutlet />,
     children: [
       {
-        path: "/dashboard",
+        path: "/admin/dashboard",
         element: <Dashboard />,
       },
       {
-        path: "/orders",
+        path: "/admin/orders",
         element: <Orders />,
       },
       {
-        // catch all route
+        // catch nt found route
         path: "*",
         element: <div>Not found</div>,
       },
@@ -51,9 +62,11 @@ const router = createBrowserRouter([...publicRoutes, ...privateRoutes]);
 
 function App() {
   return (
-    <TooltipProvider>
-      <RouterProvider router={router} />
-    </TooltipProvider>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <TooltipProvider>
+        <RouterProvider router={router} />
+      </TooltipProvider>
+    </ThemeProvider>
   );
 }
 

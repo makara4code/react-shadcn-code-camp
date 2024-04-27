@@ -11,10 +11,11 @@ import {
 } from "@/components/ui/navigation-menu";
 
 import { Button } from "@/components/ui/button";
-import { Icons } from "@/components/icons";
+import { Icons } from "@/components/Icons";
 import { Link } from "react-router-dom";
 import { PropsWithChildren } from "react";
 import { Separator } from "@/components/ui/separator";
+import {ThemeToggle} from "@/components/ThemeToggle";
 import { cn } from "@/lib/utils";
 
 const components: { title: string; href: string; description: string }[] = [
@@ -60,11 +61,11 @@ function NavigationMenuDemo() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <a href="/">
+          <Link to="/">
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Home
             </NavigationMenuLink>
-          </a>
+          </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
@@ -151,7 +152,8 @@ export const PublicLayout: React.FC<PropsWithChildren> = ({ children }) => {
       <div className="flex justify-between my-2">
         <NavigationMenuDemo />
 
-        <div>
+        <div className="flex gap-2">
+          <ThemeToggle />
           <Link to="/login">
             <Button variant="secondary">Login</Button>
           </Link>
