@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { Link, useNavigate } from "react-router-dom";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -12,11 +13,10 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/Icons";
-import { Link } from "react-router-dom";
 import { PropsWithChildren } from "react";
 import { Separator } from "@/components/ui/separator";
 import Slug from "@/resources/Slug";
-import {ThemeToggle} from "@/components/ThemeToggle";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { cn } from "@/lib/utils";
 
 const components: { title: string; href: string; description: string }[] = [
@@ -58,15 +58,15 @@ const components: { title: string; href: string; description: string }[] = [
 ];
 
 function NavigationMenuDemo() {
+  const navigate = useNavigate();
+  
   return (
     <NavigationMenu>
       <NavigationMenuList>
-        <NavigationMenuItem>
-          <Link to={Slug.HOME}>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Home
-            </NavigationMenuLink>
-          </Link>
+        <NavigationMenuItem onClick={() => navigate("/")} className="cursor-pointer">
+          <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            Home
+          </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
