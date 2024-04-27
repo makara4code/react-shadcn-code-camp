@@ -18,7 +18,7 @@ function Login() {
   
   const handleLogin = () => {
     setAccessToken("123");
-    navigate("/dashboard");
+    navigate("/admin/dashboard");
   }
   
   return (

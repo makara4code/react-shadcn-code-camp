@@ -23,6 +23,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { PropsWithChildren } from "react";
+import Slug from "@/resources/Slug";
 import { useLocalStorage } from "usehooks-ts";
 
 export default function PrivateLayout({ children }: PropsWithChildren) {
@@ -53,19 +54,19 @@ export default function PrivateLayout({ children }: PropsWithChildren) {
           <div className="flex-1">
             <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
               <Link
-                to="/dashboard"
+                to={Slug.DASHBOARD}
                 className="flex items-center gap-3 px-3 py-2 transition-all rounded-lg bg-muted text-primary hover:text-primary">
                 <Home className="w-4 h-4" />
                 Dashboard
               </Link>
               <Link
-                to="/orders"
+                to={Slug.ORDERS}
                 className="flex items-center gap-3 px-3 py-2 transition-all rounded-lg text-muted-foreground hover:text-primary">
                 <ShoppingCart className="w-4 h-4" />
                 Orders
               </Link>
               <Link
-                to="/test"
+                to="/admin/test"
                 className="flex items-center gap-3 px-3 py-2 transition-all rounded-lg text-muted-foreground hover:text-primary">
                 <Users className="w-4 h-4" />
                 Customers

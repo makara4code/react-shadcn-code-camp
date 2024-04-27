@@ -15,6 +15,7 @@ import { Icons } from "@/components/Icons";
 import { Link } from "react-router-dom";
 import { PropsWithChildren } from "react";
 import { Separator } from "@/components/ui/separator";
+import Slug from "@/resources/Slug";
 import {ThemeToggle} from "@/components/ThemeToggle";
 import { cn } from "@/lib/utils";
 
@@ -61,7 +62,7 @@ function NavigationMenuDemo() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <Link to="/">
+          <Link to={Slug.HOME}>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Home
             </NavigationMenuLink>
@@ -154,7 +155,7 @@ export const PublicLayout: React.FC<PropsWithChildren> = ({ children }) => {
 
         <div className="flex gap-2">
           <ThemeToggle />
-          <Link to="/login">
+          <Link to={Slug.LOGIN}>
             <Button variant="secondary">Login</Button>
           </Link>
         </div>

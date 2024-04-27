@@ -7,6 +7,7 @@ import Login from "@/views/app/Login";
 import Orders from "@/views/app/Orders";
 import PrivateOutlet from "@/components/outlets/PrivateOutlet";
 import PublicOutlet from "@/components/outlets/PublicOutlet";
+// import { Routes } from "@/resources/Slug"
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
@@ -16,7 +17,7 @@ const publicRoutes = [
     element: <PublicOutlet />,
     children: [
       {
-        path: "/",
+        path: "",
         element: <Home />,
       },
       {
