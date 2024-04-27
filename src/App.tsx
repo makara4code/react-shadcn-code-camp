@@ -3,7 +3,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import About from "@/views/www/About";
 import Dashboard from "@/views/app/Dashboard";
 import Home from "@/views/www/Home";
-import Login from "@/views/app/Login";
+import Login from "@/views/app/authentication/Login";
 import Orders from "@/views/app/Orders";
 import PrivateOutlet from "@/components/outlets/PrivateOutlet";
 import PublicOutlet from "@/components/outlets/PublicOutlet";
