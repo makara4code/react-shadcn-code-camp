@@ -1,12 +1,10 @@
 import { Navigate, Outlet } from "react-router-dom";
 
 import PrivateLayout from "@/layouts/PrivateLayout";
-import { useLocalStorage } from "usehooks-ts";
+import { pb } from "@/lib/pocketbase";
 
 export const PrivateOutlet: React.FC = () => {
-  const [accessToken] = useLocalStorage("accessToken", "");
-
-  return accessToken ? (
+  return pb.authStore.token ? (
     <PrivateLayout>
       <Outlet />
     </PrivateLayout>

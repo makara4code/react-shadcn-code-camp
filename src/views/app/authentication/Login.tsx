@@ -13,7 +13,7 @@ import useAuth from "./useAuth";
 import { useState } from "react";
 
 function Login() {
-  const { handleLogin ,loading } = useAuth();
+  const { handleLogin, loading } = useAuth();
   const [password, setPassword] = useState("");
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
 
@@ -33,22 +33,17 @@ function Login() {
               <Input
                 id="usernameOrPassword"
                 type="text"
-                placeholder="m@example.com"
+                placeholder="Username"
                 required
                 value={usernameOrEmail}
                 onChange={(e) => setUsernameOrEmail(e.target.value)}
               />
             </div>
             <div className="grid gap-2">
-              <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
-                <a href="#" className="inline-block ml-auto text-sm underline">
-                  Forgot your password?
-                </a>
-              </div>
               <Input
                 id="password"
                 type="password"
+                placeholder="Password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -59,7 +54,7 @@ function Login() {
               className="w-full"
               disabled={loading || !usernameOrEmail || !password}
               onClick={() => handleLogin({ usernameOrEmail, password })}>
-              Login
+              {loading ? "Loading..." : "Login"}
             </Button>
             <Button variant="outline" className="w-full" disabled>
               Login with Google

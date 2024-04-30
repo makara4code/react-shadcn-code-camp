@@ -21,19 +21,16 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PropsWithChildren } from "react";
 import Slug from "@/resources/Slug";
-import { useLocalStorage } from "usehooks-ts";
+import { pb } from "@/lib/pocketbase";
 
 export default function PrivateLayout({ children }: PropsWithChildren) {
-  const [accessToken, setAccessToken, removeAccessToken] = useLocalStorage(
-    "accessToken",
-    ""
-  );
-
+  const navigate = useNavigate();
   const handleOnLogout = () => {
-    removeAccessToken();
+    pb.authStore.clear();
+    navigate(Slug.LOGIN);
   };
 
   return (
