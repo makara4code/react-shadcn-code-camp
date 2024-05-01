@@ -26,8 +26,6 @@ import {
   MoreVertical,
   Package,
   Package2,
-  PanelLeft,
-  Search,
   ShoppingCart,
   Truck,
   Users2,
@@ -59,7 +57,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 
