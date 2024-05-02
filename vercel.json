@@ -3,6 +3,10 @@
         {
             "source": "/api/:path*",
             "destination": "https://makara-directus.up.railway.app/:path*"
-        }
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+          }
     ]
 }
