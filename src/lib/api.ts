@@ -8,7 +8,7 @@ axios.defaults.headers.common["Accept"] = "application/json";
 
 const api = axios.create({
   baseURL:
-    process.env.NODE_ENV === "development" ? "" : process.env.API_BASE_PATH,
+    process.env.NODE_ENV === "production" ? process.env.API_BASE_PATH : "",
 });
 
 export default api;
