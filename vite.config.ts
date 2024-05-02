@@ -5,13 +5,8 @@ import react from "@vitejs/plugin-react-swc";
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode ?? "development", process.cwd(), "");
-  const basePath: string = env.BASE_PATH ? env.BASE_PATH + "/" : "/";
 
-  const proxy: Record<string, string> = {
-    api: basePath + "api",
-  };
-
-  return {
+  const config = {
     plugins: [react()],
     define: {
       "process.env": env,
@@ -24,12 +19,14 @@ export default defineConfig(({ mode }) => {
 
     server: {
       proxy: {
-        [proxy.api]: {
-          target: env.BASE_API_URL,
+        "/api": {
+          target: env.API_BASE_PATH,
           changeOrigin: true,
-          rewrite: (path) => path.replace(basePath, ""),
+          rewrite: (path: string) => path.replace(/^\/api/, ""),
         },
       },
     },
   };
+
+  return config;
 });

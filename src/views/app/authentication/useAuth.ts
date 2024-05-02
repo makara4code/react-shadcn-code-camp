@@ -18,7 +18,7 @@ const useAuth = () => {
         identity: payload.usernameOrEmail,
         password: payload.password,
       });
-      
+
       console.log({ res });
     } catch (error: any) {
       toast({
