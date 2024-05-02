@@ -2,7 +2,7 @@
     "rewrites": [
         {
             "source": "/api/:path*",
-            "destination": "@API_BASE_PATH/:path*"
+            "destination": "https://makara-directus.up.railway.app/:path*"
         }
     ]
 }
