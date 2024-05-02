@@ -5,9 +5,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { DIRECTUS_API_KEY, DIRECTUS_API_PATH } from "@/constants/api";
 import { useEffect, useState } from "react";
 
+import { DIRECTUS_API_KEY } from "@/constants/api";
 import api from "@/lib/api";
 
 type Post = {
