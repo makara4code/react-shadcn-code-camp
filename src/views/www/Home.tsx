@@ -51,7 +51,7 @@ export default function Component() {
       {loading ? (
         <div>Loading...</div>
       ) : (
-        posts.map((post) => (
+        posts?.map((post) => (
           <Card className="overflow-hidden">
             <CardHeader>
               <CardTitle>{post.title}</CardTitle>
