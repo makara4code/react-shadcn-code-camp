@@ -59,11 +59,13 @@ const components: { title: string; href: string; description: string }[] = [
 
 function NavigationMenuDemo() {
   const navigate = useNavigate();
-  
+
   return (
     <NavigationMenu>
       <NavigationMenuList>
-        <NavigationMenuItem onClick={() => navigate("/")} className="cursor-pointer">
+        <NavigationMenuItem
+          onClick={() => navigate("/")}
+          className="cursor-pointer">
           <NavigationMenuLink className={navigationMenuTriggerStyle()}>
             Home
           </NavigationMenuLink>
