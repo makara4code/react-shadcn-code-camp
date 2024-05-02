@@ -14,7 +14,7 @@ const useAuth = () => {
   const handleLogin = async (payload: LoginPayload) => {
     try {
       setLogin(true);
-      const res = await api.post("/api/collections/users/auth-with-password", {
+      const res = await api.post("/collections/users/auth-with-password", {
         identity: payload.usernameOrEmail,
         password: payload.password,
       });

@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 
+import { BASE_PATH } from "@/constants/path";
 import { DIRECTUS_API_KEY } from "@/constants/api";
 import api from "@/lib/api";
 
@@ -28,9 +29,10 @@ export default function Component() {
   const [loading, setLoading] = useState(true);
 
   const fetchPost = async () => {
+    console.log({ api })
     try {
       setLoading(true);
-      const res = await api.get("/api/items/posts");
+      const res = await api.get("/items/posts");
 
       if (res.status === 200) {
         setPosts(res.data.data);
@@ -52,7 +54,7 @@ export default function Component() {
         <div>Loading...</div>
       ) : (
         posts?.map((post) => (
-          <Card className="overflow-hidden">
+          <Card className="overflow-hidden" key={post.id}>
             <CardHeader>
               <CardTitle>{post.title}</CardTitle>
               <CardDescription>
@@ -65,7 +67,7 @@ export default function Component() {
                   alt="Product image"
                   className="object-cover w-full rounded-md aspect-square"
                   height="300"
-                  src={`/api/assets/${post.thumbnail}?fit=cover&width=200&height=200&access_token=${DIRECTUS_API_KEY}`}
+                  src={`${BASE_PATH}/assets/${post.thumbnail}?fit=cover&width=200&height=200&access_token=${DIRECTUS_API_KEY}`}
                   width="300"
                 />
               </div>
