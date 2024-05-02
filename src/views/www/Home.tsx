@@ -5,6 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { SkeletonCard } from "@/components/shared/skeleton-card";
 
 import { useEffect, useState } from "react";
 
@@ -48,32 +49,39 @@ export default function Component() {
   }, []);
 
   return (
-    <div className="flex mt-2">
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
-        posts?.map((post) => (
-          <Card className="overflow-hidden" key={post.id}>
-            <CardHeader>
-              <CardTitle>{post.title}</CardTitle>
-              <CardDescription>
-                Lipsum dolor sit amet, consectetur adipiscing elit
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-2">
-                <img
-                  alt="Product image"
-                  className="object-cover w-full rounded-md aspect-square"
-                  height="300"
-                  src={`/api/assets/${post.thumbnail}?fit=cover&width=200&height=200&access_token=${DIRECTUS_API_KEY}`}
-                  width="300"
-                />
-              </div>
-            </CardContent>
-          </Card>
-        ))
-      )}
-    </div>
+    <>
+      <div className="flex gap-4 mt-6">
+        {loading ? (
+          <div className="flex flex-wrap gap-4">
+            {Array.from({ length: 6 }).map((_, index) => (
+              <SkeletonCard key={index} />
+            ))}
+          </div>
+        ) : (
+          posts?.map((post) => (
+            <Card
+              className="overflow-hidden w-[400px] hover:cursor-pointer rounded-3xl hover:shadow-md transition-transform transform hover:scale-105 "
+              key={post.id}>
+              <CardHeader>
+                <CardTitle>{post.title}</CardTitle>
+                <CardDescription>
+                  Lipsum dolor sit amet, consectetur adipiscing elit
+                </CardDescription>
+              </CardHeader>
+
+              <CardContent>
+                <div className="h-[200px]">
+                  <img
+                    alt="Product image"
+                    className="object-cover w-full h-full rounded-3xl aspect-square"
+                    src={`/api/assets/${post.thumbnail}?fit=cover&access_token=${DIRECTUS_API_KEY}`}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          ))
+        )}
+      </div>
+    </>
   );
 }
