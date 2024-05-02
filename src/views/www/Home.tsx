@@ -29,7 +29,6 @@ export default function Component() {
   const [loading, setLoading] = useState(true);
 
   const fetchPost = async () => {
-    console.log({ api })
     try {
       setLoading(true);
       const res = await api.get("/items/posts");

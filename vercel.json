@@ -9,7 +9,7 @@
                 },
                 {
                     "key": "Access-Control-Allow-Origin",
-                    "value": "@ALLOW_ORIGIN"
+                    "value": "*"
                 },
                 {
                     "key": "Access-Control-Allow-Methods",

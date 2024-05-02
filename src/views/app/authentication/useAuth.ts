@@ -14,12 +14,10 @@ const useAuth = () => {
   const handleLogin = async (payload: LoginPayload) => {
     try {
       setLogin(true);
-      const res = await api.post("/collections/users/auth-with-password", {
+      await api.post("/collections/users/auth-with-password", {
         identity: payload.usernameOrEmail,
         password: payload.password,
       });
-
-      console.log({ res });
     } catch (error: any) {
       toast({
         title: "Error",

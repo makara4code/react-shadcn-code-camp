@@ -5,6 +5,7 @@ const apiToken = process.env.DIRECTUS_API_KEY;
 axios.defaults.headers.common["Authorization"] = `Bearer ${apiToken}`;
 axios.defaults.headers.common["Content-Type"] = "application/json";
 axios.defaults.headers.common["Accept"] = "application/json";
+axios.defaults.headers.common["Access-Control-Allow-Origin"] = process.env.API_BASE_PATH;
 
 const mode = process.env.NODE_ENV;
 
