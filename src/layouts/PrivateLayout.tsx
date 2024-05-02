@@ -24,12 +24,15 @@ import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { PropsWithChildren } from "react";
 import Slug from "@/resources/Slug";
-import { pb } from "@/lib/pocketbase";
+import { useLocalStorage } from "usehooks-ts";
 
 export default function PrivateLayout({ children }: PropsWithChildren) {
   const navigate = useNavigate();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, __, removeAccessToken] = useLocalStorage("accessToken", "")
+
   const handleOnLogout = () => {
-    pb.authStore.clear();
+    removeAccessToken()
     navigate(Slug.LOGIN);
   };
 

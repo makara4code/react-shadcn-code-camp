@@ -1,25 +1,35 @@
-import { defineConfig } from 'vite'
-import path from "path";
-import react from '@vitejs/plugin-react-swc'
+import { defineConfig, loadEnv } from "vite";
 
-// https://vitejs.dev/config/
+import path from "path";
+import react from "@vitejs/plugin-react-swc";
+
 export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode ?? "development", process.cwd(), "");
+  const basePath: string = env.BASE_PATH ? env.BASE_PATH + "/" : "/";
+
+  const proxy: Record<string, string> = {
+    api: basePath + "api",
+  };
+
   return {
     plugins: [react()],
+    define: {
+      "process.env": env,
+    },
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src"),
       },
     },
-  
+
     server: {
       proxy: {
-        "/api": {
-          target: process.env.VITE_API_BASE_PATH,
+        [proxy.api]: {
+          target: env.BASE_API_URL,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ""),
-        }
+          rewrite: (path) => path.replace(basePath, ""),
+        },
       },
-    }
-  }
-})
+    },
+  };
+});
