@@ -26,6 +26,19 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
+    build: {
+      manifest: true,
+      cssCodeSplit: true,
+      reportCompressedSize: false,
+      sourcemap: false,
+      chunkSizeWarningLimit: 2500,
+      rollupOptions: {
+        onwarn(warning: any, warn: any) {
+          if (warning.code === "EVAL") return;
+          warn(warning);
+        },
+      },
+    },
   };
 
   return config;
