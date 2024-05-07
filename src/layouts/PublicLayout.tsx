@@ -114,7 +114,7 @@ export const PublicLayout: React.FC<PropsWithChildren> = ({ children }) => {
       </div>
       <Separator />
 
-      {children}
+      <div className="container">{children}</div>
     </div>
   );
 };

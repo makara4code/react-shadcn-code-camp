@@ -1,13 +1,16 @@
 export type Post = {
-  id: number;
+  slug: string;
   status: string;
   sort: any;
-  user_created: string;
   date_created: string;
   user_updated: string;
   date_updated: string;
   title: string;
   content: string;
+  user_created: {
+    last_name: string;
+    first_name: string;
+  },
   thumbnail: {
     id: string;
   };

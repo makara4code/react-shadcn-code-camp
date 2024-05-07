@@ -24,16 +24,21 @@ export const useHomePage = () => {
   const fetchPostGraph = async () => {
     try {
       setLoading(true);
-      
       const query = `
         query {
-          posts {
-            id
-            title
+          posts(filter: { status: { _eq: "published" }}) {
+            title,
+            slug,
+            status,
+            user_created {
+              last_name,
+              first_name,
+            },
             thumbnail {
               id
-            }
-          }
+            },
+            date_created,
+          },
         }
       `;
 

@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+import { Badge } from "@/components/ui/badge";
 import { DIRECTUS_API_KEY } from "@/constants/api";
 import { SkeletonCard } from "@/components/shared/skeleton-card";
 import { useEffect } from "react";
@@ -19,7 +20,7 @@ export function HomePage() {
   }, []);
 
   return (
-    <div className="flex gap-4 mt-6">
+    <div className="flex flex-wrap justify-center gap-4 mt-6">
       {loading ? (
         <div className="flex flex-wrap gap-4">
           {Array.from({ length: 6 }).map((_, index) => (
@@ -29,20 +30,28 @@ export function HomePage() {
       ) : (
         posts?.map((post) => (
           <Card
-            className="overflow-hidden w-[400px] hover:cursor-pointer rounded-3xl hover:shadow-md transition-transform transform hover:scale-105 "
-            key={post.id}>
+            className="overflow-hidden w-[350px] hover:cursor-pointer rounded-xl hover:shadow-md transition-transform transform hover:scale-102 hover:border-primary"
+            key={post.slug}>
             <CardHeader>
-              <CardTitle>{post.title}</CardTitle>
+              <CardTitle className="">{post.title}</CardTitle>
               <CardDescription>
-                Lipsum dolor sit amet, consectetur adipiscing elit
+                {new Date(post.date_created).toDateString()}
+              </CardDescription>
+              <CardDescription>
+                <Badge variant="secondary" className="pt-0">
+                  <span>Author:{" "}
+                  {post.user_created.first_name +
+                    " " +
+                    post.user_created.last_name}</span>
+                </Badge>
               </CardDescription>
             </CardHeader>
 
             <CardContent>
-              <div className="h-[200px]">
+              <div className="h-[150px]">
                 <img
                   alt="Product image"
-                  className="object-cover w-full h-full rounded-3xl aspect-square"
+                  className="object-cover w-full h-full rounded-xl aspect-square"
                   src={`/api/assets/${post.thumbnail.id}?fit=cover&access_token=${DIRECTUS_API_KEY}`}
                 />
               </div>
