@@ -30,7 +30,7 @@ export function HomePage() {
       ) : (
         posts?.map((post) => (
           <Card
-            className="overflow-hidden w-[350px] hover:cursor-pointer rounded-xl hover:shadow-md transition-transform transform hover:scale-102 hover:border-primary"
+            className="overflow-hidden w-[350px] hover:cursor-pointer rounded-xl hover:shadow-md transition-transform transform hover:scale-102 hover:border-primary hover:text-primary"
             key={post.slug}>
             <CardHeader>
               <CardTitle className="">{post.title}</CardTitle>
