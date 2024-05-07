@@ -34,6 +34,11 @@ const routes: { title: string; href: string; description: string }[] = [
     href: "/orders",
     description: "Route to the about page.",
   },
+  {
+    title: "Contact Us",
+    href: "/contact",
+    description: "Route to the contact us page.",
+  },
 ];
 
 function NavigationMenuDemo() {
@@ -54,7 +59,7 @@ function NavigationMenuDemo() {
           <NavigationMenuContent>
             <ul className="grid w-[200px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
               {routes?.map((route) => (
-                <Link to={route.href}>
+                <Link to={route.href} key={route.href}>
                   <ListItem key={route.title} title={route.title}>
                     {route.description}
                   </ListItem>

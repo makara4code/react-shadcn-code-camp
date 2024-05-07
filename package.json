@@ -24,6 +24,8 @@
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "graphql-request": "^6.1.0",
+    "graphql-ws": "^5.16.0",
     "lucide-react": "^0.376.0",
     "pocketbase": "^0.21.2",
     "react": "^18.2.0",
