@@ -1,7 +1,7 @@
-import About from "@/views/www/About";
-import { ContactUs } from "@/views/www/ContactUs";
+import About from "@/views/www/about/About";
+import { ContactUs } from "@/views/www/contact-us/ContactUs";
 import { HomePage } from "@/views/www/home/HomePage";
-import { LearnMore } from "@/views/www/LearnMore";
+import { LearnMore } from "@/views/www/learn-more/LearnMore";
 import Login from "@/views/app/authentication/Login";
 import PublicOutlet from "@/components/outlets/PublicOutlet";
 
