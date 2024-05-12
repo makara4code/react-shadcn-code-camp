@@ -1,23 +1,24 @@
-// 2 types of functional components
-// - normal function
-// - arrow function
+import { Card, CardContent } from "@/components/ui/card";
+import About from "../about/About";
+import { useAuthContext } from "@/context/useAuthContext";
+import { useSelector } from "react-redux";
 
 export function ContactUs() {
+  const { token } = useAuthContext();
+  const count = useSelector((state: any) => state.counter.value)
+
   return (
-    <>
-      <h1>Hello from Contact Us Page</h1>
-    </>
+    <div className="flex mt-2">
+      <Card className="w-2/3">
+        <CardContent>
+        <h1 className="text-2xl font-bold">Contact Us Page</h1>
+        Token In Contact Us Page: {token}
+        <p>Redux count value: {count}</p>
+        </CardContent>
+      </Card>
+      
+      <About />
+    </div>
   );
 }
-
-export const data = [
-    {
-        name: "John Doe",
-        email: ""
-    }
-]
-
-// 2 types of export
-// - default export
-// - named export
-export default ContactUs
+export default ContactUs;

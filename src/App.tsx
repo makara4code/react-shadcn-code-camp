@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { router } from "@/routes";
 
+// named export
 export function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
@@ -15,3 +16,5 @@ export function App() {
     </ThemeProvider>
   );
 }
+
+export default App;

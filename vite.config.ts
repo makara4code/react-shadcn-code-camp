@@ -11,6 +11,7 @@ export default defineConfig(({ mode }) => {
     define: {
       "process.env": env,
     },
+    
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src"),
@@ -26,6 +27,7 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
+    
     build: {
       manifest: true,
       cssCodeSplit: true,
