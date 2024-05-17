@@ -6,11 +6,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { AArrowUp } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DIRECTUS_API_KEY } from "@/constants/api";
-import MyButton from "@/components/MyButton";
 import { SkeletonCard } from "@/components/shared/skeleton-card";
 import { useEffect } from "react";
 import { useHomePage } from "./useHomePage";
@@ -25,15 +23,6 @@ export function HomePage() {
 
   return (
     <>
-      <Button variant="destructive">
-        <AArrowUp />
-        Shadcn Button
-      </Button>
-      
-      <MyButton color="outline" icon={<AArrowUp />}>
-        <p className="text-white">CLick ME</p>
-      </MyButton>
-
       <div className="flex flex-wrap justify-center gap-4 mt-6">
         {loading ? (
           <div className="flex flex-wrap gap-4">

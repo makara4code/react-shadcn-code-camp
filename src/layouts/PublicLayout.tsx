@@ -30,9 +30,9 @@ const routes: { title: string; href: string; description: string }[] = [
     description: "Route to the about page.",
   },
   {
-    title: "Orders",
-    href: "/orders",
-    description: "Route to the about page.",
+    title: "Products",
+    href: "/products",
+    description: "Route to the products page.",
   },
   {
     title: "Contact Us",

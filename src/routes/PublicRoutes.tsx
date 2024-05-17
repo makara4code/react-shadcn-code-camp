@@ -3,6 +3,7 @@ import { ContactUs } from "@/views/www/contact-us/ContactUs";
 import { HomePage } from "@/views/www/home/HomePage";
 import { LearnMore } from "@/views/www/learn-more/LearnMore";
 import Login from "@/views/app/authentication/Login";
+import Products from "@/views/www/products/Products";
 import PublicOutlet from "@/components/outlets/PublicOutlet";
 
 export const publicRoutes = [
@@ -25,6 +26,10 @@ export const publicRoutes = [
       {
         path: "/learn-more",
         element: <LearnMore />,
+      },
+      {
+        path: "/products",
+        element: <Products />,
       },
       {
         path: "*",
