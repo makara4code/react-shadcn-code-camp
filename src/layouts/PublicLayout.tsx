@@ -44,9 +44,15 @@ const routes: { title: string; href: string; description: string }[] = [
 function NavigationMenuDemo() {
   const navigate = useNavigate();
 
+  const preventHover = (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+  };
+
   return (
     <NavigationMenu>
-      <NavigationMenuList>
+      <NavigationMenuList
+        onPointerEnter={preventHover}
+        onPointerLeave={preventHover}>
         <NavigationMenuItem
           onClick={() => navigate("/")}
           className="cursor-pointer">
@@ -55,7 +61,11 @@ function NavigationMenuDemo() {
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Routes</NavigationMenuTrigger>
+          <NavigationMenuTrigger
+            onPointerEnter={preventHover}
+            onPointerLeave={preventHover}>
+            Routes
+          </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[200px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
               {routes?.map((route) => (

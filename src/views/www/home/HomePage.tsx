@@ -7,14 +7,12 @@ import {
 } from "@/components/ui/card";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { DIRECTUS_API_KEY } from "@/constants/api";
 import { SkeletonCard } from "@/components/shared/skeleton-card";
 import { useEffect } from "react";
 import { useHomePage } from "./useHomePage";
 
 export function HomePage() {
-  console.log(<Button />)
   const { posts, loading, fetchPostGraph } = useHomePage();
 
   useEffect(() => {
