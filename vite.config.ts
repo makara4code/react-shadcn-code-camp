@@ -25,6 +25,11 @@ export default defineConfig(({ mode }) => {
           changeOrigin: true,
           rewrite: (path: string) => path.replace(/^\/api/, ""),
         },
+        "/admin": {
+          target: env.DIRECTUS_API_URL,
+          changeOrigin: true,
+          rewrite: (path: string) => path.replace(/^\/admin/, ""),
+        }
       },
     },
     

@@ -10,13 +10,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import useAuth from "./useAuth";
-import { useState } from "react";
+import { useDebounceValue } from "usehooks-ts";
 
 function Login() {
+  const [password, setPassword] = useDebounceValue("", 500);
+  const [usernameOrEmail, setUsernameOrEmail] = useDebounceValue("", 500);
   const { handleLogin, loading } = useAuth();
-  const [password, setPassword] = useState("");
-  const [usernameOrEmail, setUsernameOrEmail] = useState("");
 
+  
   return (
     <div className="flex items-center justify-center h-screen">
       <Card className="max-w-sm mx-auto">
@@ -35,7 +36,7 @@ function Login() {
                 type="text"
                 placeholder="Username"
                 required
-                value={usernameOrEmail}
+                defaultValue={usernameOrEmail}
                 onChange={(e) => setUsernameOrEmail(e.target.value)}
               />
             </div>
@@ -45,7 +46,7 @@ function Login() {
                 type="password"
                 placeholder="Password"
                 required
-                value={password}
+                defaultValue={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
@@ -61,7 +62,7 @@ function Login() {
             </Button>
           </div>
           <div className="mt-4 text-sm text-center">
-            Don&apos;t have an account?{" "}
+            Don&apos;t have an account?
             <a href="#" className="underline">
               Sign up
             </a>

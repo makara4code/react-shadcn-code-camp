@@ -17,22 +17,22 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Link, useNavigate } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Link, useNavigate } from "react-router-dom";
 import { PropsWithChildren } from "react";
 import Slug from "@/resources/Slug";
-import { useLocalStorage } from "usehooks-ts";
 
 export default function PrivateLayout({ children }: PropsWithChildren) {
   const navigate = useNavigate();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, __, removeAccessToken] = useLocalStorage("accessToken", "")
 
   const handleOnLogout = () => {
-    removeAccessToken()
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("expires");
+
     navigate(Slug.LOGIN);
   };
 
