@@ -8,9 +8,10 @@
 // import Products from "@/views/www/products/Products";
 // import PublicOutlet from "@/components/outlets/PublicOutlet";
 
+import { lazy } from "react";
 import loadable from "@loadable/component";
 
-const AboutPage = loadable(() => import("@/views/www/about/About"));
+const AboutPage = lazy(() => import("@/views/www/about/About"));
 const ContactUs = loadable(() => import("@/views/www/contact-us/ContactUs"));
 const HomePage = loadable(() => import("@/views/www/home/HomePage"));
 const LearnMore = loadable(() => import("@/views/www/learn-more/LearnMore"));
