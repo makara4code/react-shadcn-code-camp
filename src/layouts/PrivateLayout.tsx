@@ -51,6 +51,7 @@ import {
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import secureLocalStorage from "react-secure-storage";
 import { Routes } from "@/resources/Slug";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 // This is sample data.
 const data = {
@@ -373,20 +374,23 @@ export default function Page({ children }: Props) {
         <SidebarRail />
       </Sidebar>
       <SidebarInset>
-        <header className="sticky top-0 flex items-center gap-2 p-4 border-b shrink-0 bg-background">
-          <SidebarTrigger className="-ml-1" />
-          <Separator orientation="vertical" className="h-4 mr-2" />
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="#">All Inboxes</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator className="hidden md:block" />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Inbox</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
+        <header className="sticky top-0 flex items-center justify-between p-4 border-b shrink-0 bg-background ">
+          <div className="flex items-center justify-between gap-2 ">
+            <SidebarTrigger className="-ml-1" />
+            <Separator orientation="vertical" className="h-4 mr-2" />
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem className="hidden md:block">
+                  <BreadcrumbLink href="#">All Inboxes</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator className="hidden md:block" />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>Inbox</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
+          <ThemeToggle />
         </header>
         <div className="flex flex-col flex-1 gap-4 p-4">{children}</div>
       </SidebarInset>
