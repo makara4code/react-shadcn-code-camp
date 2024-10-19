@@ -11,7 +11,6 @@
 // import { lazy } from "react";
 import LoginOutlet from "@/components/outlets/LoginOutlet";
 import loadable from "@loadable/component";
-import { Navigate } from "react-router-dom";
 
 // const AboutPage = lazy(() => import("@/views/www/about/About"));
 // const ContactUs = loadable(() => import("@/views/www/contact-us/ContactUs"));

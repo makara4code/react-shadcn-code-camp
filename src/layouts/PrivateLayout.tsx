@@ -2,30 +2,17 @@
 
 import * as React from "react";
 import {
-  AppWindowMac,
   AudioWaveform,
   BadgeCheck,
   Bell,
-  BookOpen,
-  Bot,
-  ChevronRight,
   ChevronsUpDown,
   Command,
   CreditCard,
-  Folder,
-  Forward,
-  Frame,
   GalleryVerticalEnd,
   LayoutGrid,
   LogOut,
-  Map,
-  MoreHorizontal,
   PieChart,
-  Plus,
-  Settings2,
   Sparkles,
-  SquareTerminal,
-  Trash2,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -38,18 +25,12 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
