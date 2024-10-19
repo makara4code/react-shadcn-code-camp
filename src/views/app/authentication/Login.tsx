@@ -13,6 +13,7 @@ import useAuth from "./useAuth";
 import { useDebounceValue } from "usehooks-ts";
 import { Navigate } from "react-router-dom";
 import secureLocalStorage from "react-secure-storage";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 function Login() {
   const accessToken = secureLocalStorage.getItem("accessToken");
@@ -21,8 +22,8 @@ function Login() {
     return <Navigate to="/dashboard" />;
   }
 
-  const [password, setPassword] = useDebounceValue("", 500);
-  const [usernameOrEmail, setUsernameOrEmail] = useDebounceValue("", 500);
+  const [usernameOrEmail, setUsernameOrEmail] = useDebounceValue("", 100);
+  const [password, setPassword] = useDebounceValue("", 100);
   const { handleLogin, loading } = useAuth();
 
   return (
@@ -66,6 +67,7 @@ function Login() {
             >
               {loading ? "Loading..." : "Login"}
             </Button>
+
             {/* <Button variant="outline" className="w-full" disabled>
               Login with Google
             </Button> */}
@@ -76,6 +78,10 @@ function Login() {
               Sign up
             </a>
           </div> */}
+
+          <div className="flex items-center justify-center gap-2 mt-6">
+            <ThemeToggle />
+          </div>
         </CardContent>
       </Card>
     </div>
