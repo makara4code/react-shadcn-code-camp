@@ -2,10 +2,10 @@ import { Navigate, Outlet } from "react-router-dom";
 
 import PrivateLayout from "@/layouts/PrivateLayout";
 import React from "react";
-import { useLocalStorage } from "usehooks-ts";
+import secureLocalStorage from "react-secure-storage";
 
 export const PrivateOutlet: React.FC = () => {
-  const [accessToken] = useLocalStorage("accessToken", "");
+  const accessToken = secureLocalStorage.getItem("accessToken");
 
   return accessToken ? (
     <PrivateLayout>

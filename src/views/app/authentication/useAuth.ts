@@ -5,6 +5,7 @@ import { useLocalStorage } from "usehooks-ts";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import secureLocalStorage from "react-secure-storage";
 
 export type LoginPayload = {
   usernameOrEmail: string;
@@ -16,32 +17,26 @@ const useAuth = () => {
   const { toast } = useToast();
 
   const [loading, setLogin] = useState(false);
-  const [_accessToken, setAccessToken] = useLocalStorage<string>('accessToken', "")
-  const [_refreshToken, setRefreshToken] = useLocalStorage<string>('refreshToken', "")
-  const [_expiresIn, setExpiresIn] = useLocalStorage<string>('expiresIn', "")
-
-
+  
   const handleLogin = async (payload: LoginPayload) => {
     try {
       setLogin(true);
-      const res = await api.post("/admin/auth/login", {
+      const res = await api.post("/api/auth/login", {
         email: payload.usernameOrEmail,
         password: payload.password,
       });
 
       if (res.data) {
-        console.log({ res })
-        setAccessToken(res.data.data.access_token);
-        setRefreshToken(res.data.data.refresh_token);
-        setExpiresIn(res.data.data.expires);
-        
+        secureLocalStorage.setItem("accessToken", res.data.data.access_token);
+        secureLocalStorage.setItem("refreshToken", res.data.data.refresh_token);
+        secureLocalStorage.setItem("expires", res.data.data.expires);
+
         toast({
           title: "Success",
           description: "You have successfully logged in",
         });
 
-        // Redirect to dashboard
-        navigate("/admin/dashboard");
+        navigate("/dashboard");
       }
       
     } catch (error: any) {

@@ -11,15 +11,15 @@ const PrivateOutlet = loadable(() => import("@/components/outlets/PrivateOutlet"
 
 export const privateRoutes = [
   {
-    path: "/admin",
+    path: "/",
     element: <PrivateOutlet />,
     children: [
       {
-        path: "/admin/dashboard",
+        path: "/dashboard",
         element: <Dashboard />,
       },
       {
-        path: "/admin/orders",
+        path: "/orders",
         element: <Orders />,
       },
       {

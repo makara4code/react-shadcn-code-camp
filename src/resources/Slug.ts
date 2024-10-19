@@ -5,8 +5,8 @@ export const Routes = {
     LOGIN: '/login',
 
     // Admin
-    DASHBOARD: '/admin/dashboard',
-    ORDERS: '/admin/orders',
+    DASHBOARD: '/dashboard',
+    ORDERS: '/orders',
 
 }
 

@@ -11,17 +11,24 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import useAuth from "./useAuth";
 import { useDebounceValue } from "usehooks-ts";
+import { Navigate } from "react-router-dom";
+import secureLocalStorage from "react-secure-storage";
 
 function Login() {
+  const accessToken = secureLocalStorage.getItem("accessToken");
+
+  if (accessToken) {
+    return <Navigate to="/dashboard" />;
+  }
+
   const [password, setPassword] = useDebounceValue("", 500);
   const [usernameOrEmail, setUsernameOrEmail] = useDebounceValue("", 500);
   const { handleLogin, loading } = useAuth();
 
-  
   return (
     <div className="flex items-center justify-center h-screen">
       <Card className="max-w-sm mx-auto">
-        <CardHeader>
+        <CardHeader className="flex items-center justify-between">
           <CardTitle className="text-2xl">Login</CardTitle>
           <CardDescription>
             Enter your email below to login to your account
@@ -41,6 +48,7 @@ function Login() {
               />
             </div>
             <div className="grid gap-2">
+              <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
                 type="password"
@@ -54,19 +62,20 @@ function Login() {
               type="submit"
               className="w-full"
               disabled={loading || !usernameOrEmail || !password}
-              onClick={() => handleLogin({ usernameOrEmail, password })}>
+              onClick={() => handleLogin({ usernameOrEmail, password })}
+            >
               {loading ? "Loading..." : "Login"}
             </Button>
-            <Button variant="outline" className="w-full" disabled>
+            {/* <Button variant="outline" className="w-full" disabled>
               Login with Google
-            </Button>
+            </Button> */}
           </div>
-          <div className="mt-4 text-sm text-center">
+          {/* <div className="mt-4 text-sm text-center">
             Don&apos;t have an account?
             <a href="#" className="underline">
               Sign up
             </a>
-          </div>
+          </div> */}
         </CardContent>
       </Card>
     </div>
