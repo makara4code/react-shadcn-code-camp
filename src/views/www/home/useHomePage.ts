@@ -1,5 +1,5 @@
 import type { Post } from "@/types/post";
-import api from "@/lib/api";
+import api from "@/api/axios";
 import { useState } from "react";
 
 export const useHomePage = () => {

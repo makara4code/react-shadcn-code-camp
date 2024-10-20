@@ -6,8 +6,9 @@ import secureLocalStorage from "react-secure-storage";
 
 export const PrivateOutlet: React.FC = () => {
   const accessToken = secureLocalStorage.getItem("accessToken");
+  const refreshToken = secureLocalStorage.getItem("refreshToken");
 
-  return accessToken ? (
+  return accessToken || refreshToken ? (
     <PrivateLayout>
       <Outlet />
     </PrivateLayout>

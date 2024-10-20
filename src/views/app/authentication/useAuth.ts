@@ -14,12 +14,14 @@ export type LoginPayload = {
 const useAuth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-
+  const [errors, setErrors] = useState<Array<Record<string, any>>>([]);
   const [loading, setLogin] = useState(false);
   
   const handleLogin = async (payload: LoginPayload) => {
     try {
       setLogin(true);
+      setErrors([]);
+
       const res = await api.post("/api/auth/login", {
         email: payload.usernameOrEmail,
         password: payload.password,
@@ -28,7 +30,8 @@ const useAuth = () => {
       if (res.data) {
         secureLocalStorage.setItem("accessToken", res.data.data.access_token);
         secureLocalStorage.setItem("refreshToken", res.data.data.refresh_token);
-        secureLocalStorage.setItem("expires", res.data.data.expires);
+        secureLocalStorage.setItem("expires", res.data.data.expires.toString());
+        secureLocalStorage.setItem("expireAt", new Date (Date.now() + res.data.data.expires).toISOString());
 
         toast({
           title: "Success",
@@ -39,16 +42,13 @@ const useAuth = () => {
       }
       
     } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error?.message,
-      });
+      setErrors(error?.response?.data?.errors ?? ["Something went wrong"]);
     } finally {
       setLogin(false);
     }
   };
 
-  return { loading, handleLogin };
+  return { errors, loading, handleLogin };
 };
 
 export default useAuth;

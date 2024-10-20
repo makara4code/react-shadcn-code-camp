@@ -1,5 +1,5 @@
 import type { Product } from "@/types/product";
-import api from "@/lib/api";
+import api from "@/api/axios";
 import { useState } from "react";
 
 export const useProducts = () => {

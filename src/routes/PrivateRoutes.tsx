@@ -3,10 +3,11 @@
 // import Orders from "@/views/app/Orders";
 // import PrivateOutlet from "@/components/outlets/PrivateOutlet";
 
+import TraineeDetail from "@/views/app/trainee/TraineeDetail";
 import loadable from "@loadable/component";
 
 const Dashboard = loadable(() => import("@/views/app/Dashboard"));
-const Orders = loadable(() => import("@/views/app/Orders"));
+const Trainees = loadable(() => import("@/views/app/trainee/Trainees"));
 const PrivateOutlet = loadable(() => import("@/components/outlets/PrivateOutlet"));
 
 export const privateRoutes = [
@@ -19,8 +20,21 @@ export const privateRoutes = [
         element: <Dashboard />,
       },
       {
-        path: "/orders",
-        element: <Orders />,
+        path: "/trainee",
+        children: [
+          {
+            path: "",
+            element: <Trainees />,
+          } ,         
+          {
+            path: "/trainee/:id/info",
+            element: <TraineeDetail />
+          },
+          {
+            path: "/trainee/:id/edit",
+            element: <TraineeDetail />
+          }
+        ]
       },
       {
         path: "*",

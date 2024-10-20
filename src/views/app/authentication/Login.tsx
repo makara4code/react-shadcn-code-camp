@@ -1,7 +1,6 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -24,17 +23,25 @@ function Login() {
 
   const [usernameOrEmail, setUsernameOrEmail] = useDebounceValue("", 100);
   const [password, setPassword] = useDebounceValue("", 100);
-  const { handleLogin, loading } = useAuth();
+  const { handleLogin, loading, errors } = useAuth();
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <Card className="max-w-sm mx-auto">
+      <Card className="w-full max-w-md">
         <CardHeader className="flex items-center justify-between">
           <CardTitle className="text-2xl">Login</CardTitle>
-          <CardDescription>
-            Enter your email below to login to your account
-          </CardDescription>
         </CardHeader>
+        <CardContent>
+          {errors.length > 0 && (
+            <div className="flex justify-start p-4 mt-4 border border-red-500 rounded-md">
+              {errors?.map((err, index) => (
+                <div key={index} className="text-sm text-red-500">
+                  {err.message}
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
         <CardContent>
           <div className="grid gap-4">
             <div className="grid gap-2">
@@ -61,7 +68,7 @@ function Login() {
             </div>
             <Button
               type="submit"
-              className="w-full"
+              className="w-full dark:text-white"
               disabled={loading || !usernameOrEmail || !password}
               onClick={() => handleLogin({ usernameOrEmail, password })}
             >

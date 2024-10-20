@@ -1,39 +1,23 @@
-"use client";
-
 import * as React from "react";
 import {
-  AudioWaveform,
-  BadgeCheck,
-  Bell,
   ChevronsUpDown,
-  Command,
-  CreditCard,
-  GalleryVerticalEnd,
   LayoutGrid,
   LogOut,
-  PieChart,
-  Sparkles,
+  MapPin,
+  Users,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Separator } from "@/components/ui/separator";
+
 import {
   Sidebar,
   SidebarContent,
@@ -48,10 +32,14 @@ import {
   SidebarRail,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import secureLocalStorage from "react-secure-storage";
 import { Routes } from "@/resources/Slug";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import api from "@/api/axios";
+import { User } from "@/types/user";
+import { getShortName } from "@/utils/string";
 
 // This is sample data.
 const data = {
@@ -62,87 +50,20 @@ const data = {
   },
   teams: [
     {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
+      name: "BKK Branch",
+      logo: MapPin,
       plan: "Enterprise",
     },
     {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
+      name: "TTP Branch.",
+      logo: MapPin,
       plan: "Startup",
     },
     {
       name: "Evil Corp.",
-      logo: Command,
+      logo: MapPin,
       plan: "Free",
     },
-  ],
-  navMain: [
-    // {
-    //   title: "Models",
-    //   url: "#",
-    //   icon: Bot,
-    //   items: [
-    //     {
-    //       title: "Genesis",
-    //       url: "#",
-    //     },
-    //     {
-    //       title: "Explorer",
-    //       url: "#",
-    //     },
-    //     {
-    //       title: "Quantum",
-    //       url: "#",
-    //     },
-    //   ],
-    // },
-    // {
-    //   title: "Documentation",
-    //   url: "#",
-    //   icon: BookOpen,
-    //   items: [
-    //     {
-    //       title: "Introduction",
-    //       url: "#",
-    //     },
-    //     {
-    //       title: "Get Started",
-    //       url: "#",
-    //     },
-    //     {
-    //       title: "Tutorials",
-    //       url: "#",
-    //     },
-    //     {
-    //       title: "Changelog",
-    //       url: "#",
-    //     },
-    //   ],
-    // },
-    // {
-    //   title: "Settings",
-    //   url: "#",
-    //   icon: Settings2,
-    //   items: [
-    //     {
-    //       title: "General",
-    //       url: "#",
-    //     },
-    //     {
-    //       title: "Team",
-    //       url: "#",
-    //     },
-    //     {
-    //       title: "Billing",
-    //       url: "#",
-    //     },
-    //     {
-    //       title: "Limits",
-    //       url: "#",
-    //     },
-    //   ],
-    // },
   ],
   projects: [
     {
@@ -151,9 +72,9 @@ const data = {
       icon: LayoutGrid,
     },
     {
-      name: "Orders",
-      url: "/orders",
-      icon: PieChart,
+      name: "Trainees",
+      url: "/trainee",
+      icon: Users,
     },
   ],
 };
@@ -164,12 +85,27 @@ type Props = {
 
 export default function Page({ children }: Props) {
   const navigate = useNavigate();
-  const [activeTeam] = React.useState(data.teams[0]);
+  const location = useLocation();
+
+  const [activeTeam, setActiveTeam] = React.useState(data.teams[0]);
+  const [userInfo, setUserInfo] = React.useState<User>();
+
   const handleLogout = () => {
     secureLocalStorage.clear();
     navigate(Routes.LOGIN);
   };
-  const location = useLocation();
+
+  const fetchUserInfo = async () => {
+    const res = await api.get("/api/users/me?fields=*");
+
+    if (res?.data?.data) {
+      setUserInfo(res.data.data);
+    }
+  };
+
+  React.useEffect(() => {
+    fetchUserInfo();
+  }, []);
 
   return (
     <SidebarProvider>
@@ -177,111 +113,68 @@ export default function Page({ children }: Props) {
         <SidebarHeader>
           <SidebarMenu>
             <SidebarMenuItem>
-              <Link to={Routes.DASHBOARD}>
-                <SidebarMenuButton
-                  size="lg"
-                  className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <SidebarMenuButton
+                    size="lg"
+                    className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                  >
+                    <div className="flex items-center justify-center rounded-lg aspect-square size-8 bg-sidebar-primary text-sidebar-primary-foreground">
+                      <activeTeam.logo className="size-4" />
+                    </div>
+                    <div className="grid flex-1 text-sm leading-tight text-left">
+                      <span className="font-semibold truncate">
+                        {activeTeam.name}
+                      </span>
+                      <span className="text-xs truncate">
+                        {activeTeam.plan}
+                      </span>
+                    </div>
+                    <ChevronsUpDown className="ml-auto" />
+                  </SidebarMenuButton>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+                  align="start"
+                  side="bottom"
+                  sideOffset={4}
                 >
-                  <div className="flex items-center justify-center rounded-lg aspect-square size-8 bg-sidebar-primary text-sidebar-primary-foreground">
-                    <activeTeam.logo className="size-4" />
-                  </div>
-                  <div className="grid flex-1 text-sm leading-tight text-left">
-                    <span className="font-semibold truncate">
-                      {activeTeam.name}
-                    </span>
-                    <span className="text-xs truncate">{activeTeam.plan}</span>
-                  </div>
-                </SidebarMenuButton>
-              </Link>
+                  <DropdownMenuLabel className="text-xs text-muted-foreground">
+                    Teams
+                  </DropdownMenuLabel>
+                  {data.teams.map((team) => (
+                    <DropdownMenuItem
+                      key={team.name}
+                      onClick={() => setActiveTeam(team)}
+                      className="gap-2 p-2"
+                    >
+                      <div className="flex items-center justify-center border rounded-sm size-6">
+                        <team.logo className="size-4 shrink-0" />
+                      </div>
+                      {team.name}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarHeader>
         <SidebarContent>
-          {/* <SidebarGroup>
-            <SidebarGroupLabel>Platform</SidebarGroupLabel>
-            <SidebarMenu>
-              {data.navMain.map((item) => (
-                <Collapsible
-                  key={item.title}
-                  asChild
-                  defaultOpen={item.isActive}
-                  className="group/collapsible"
-                >
-                  <SidebarMenuItem>
-                    <CollapsibleTrigger asChild>
-                      <SidebarMenuButton tooltip={item.title}>
-                        {item.icon && <item.icon />}
-                        <span>{item.title}</span>
-                        <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                      </SidebarMenuButton>
-                    </CollapsibleTrigger>
-                    <CollapsibleContent>
-                      <SidebarMenuSub>
-                        {item.items?.map((subItem) => (
-                          <SidebarMenuSubItem key={subItem.title}>
-                            <SidebarMenuSubButton asChild>
-                              <a href={subItem.url}>
-                                <span>{subItem.title}</span>
-                              </a>
-                            </SidebarMenuSubButton>
-                          </SidebarMenuSubItem>
-                        ))}
-                      </SidebarMenuSub>
-                    </CollapsibleContent>
-                  </SidebarMenuItem>
-                </Collapsible>
-              ))}
-            </SidebarMenu>
-          </SidebarGroup> */}
           <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-            {/* <SidebarGroupLabel>Projects</SidebarGroupLabel> */}
             <SidebarMenu>
               {data.projects.map((item) => (
                 <SidebarMenuItem key={item.name}>
                   <SidebarMenuButton
                     asChild
-                    isActive={location.pathname === item.url}
+                    isActive={location.pathname.startsWith(item.url)}
                   >
                     <NavLink to={item.url}>
                       <item.icon />
                       <span>{item.name}</span>
                     </NavLink>
                   </SidebarMenuButton>
-                  {/* <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <SidebarMenuAction showOnHover>
-                        <MoreHorizontal />
-                        <span className="sr-only">More</span>
-                      </SidebarMenuAction>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent
-                      className="w-48 rounded-lg"
-                      side="bottom"
-                      align="end"
-                    >
-                      <DropdownMenuItem>
-                        <Folder className="text-muted-foreground" />
-                        <span>View Project</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Forward className="text-muted-foreground" />
-                        <span>Share Project</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem>
-                        <Trash2 className="text-muted-foreground" />
-                        <span>Delete Project</span>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu> */}
                 </SidebarMenuItem>
               ))}
-              {/* <SidebarMenuItem>
-                <SidebarMenuButton className="text-sidebar-foreground/70">
-                  <MoreHorizontal className="text-sidebar-foreground/70" />
-                  <span>More</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem> */}
             </SidebarMenu>
           </SidebarGroup>
         </SidebarContent>
@@ -297,16 +190,21 @@ export default function Page({ children }: Props) {
                     <Avatar className="w-8 h-8 rounded-lg">
                       <AvatarImage
                         src={data.user.avatar}
-                        alt={data.user.name}
+                        alt={userInfo?.first_name}
                       />
-                      <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                      <AvatarFallback className="rounded-lg">
+                        {getShortName(
+                          userInfo?.first_name,
+                          userInfo?.last_name
+                        )}
+                      </AvatarFallback>
                     </Avatar>
                     <div className="grid flex-1 text-sm leading-tight text-left">
                       <span className="font-semibold truncate">
-                        {data.user.name}
+                        {userInfo?.first_name}
                       </span>
                       <span className="text-xs truncate">
-                        {data.user.email}
+                        {userInfo?.email}
                       </span>
                     </div>
                     <ChevronsUpDown className="ml-auto size-4" />
@@ -326,44 +224,25 @@ export default function Page({ children }: Props) {
                           alt={data.user.name}
                         />
                         <AvatarFallback className="rounded-lg">
-                          CN
+                          {getShortName(
+                            userInfo?.first_name,
+                            userInfo?.last_name
+                          )}
                         </AvatarFallback>
                       </Avatar>
                       <div className="grid flex-1 text-sm leading-tight text-left">
                         <span className="font-semibold truncate">
-                          {data.user.name}
+                          {userInfo?.first_name}
                         </span>
                         <span className="text-xs truncate">
-                          {data.user.email}
+                          {userInfo?.email}
                         </span>
                       </div>
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem>
-                      <Sparkles />
-                      Upgrade to Pro
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem>
-                      <BadgeCheck />
-                      Account
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <CreditCard />
-                      Billing
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Bell />
-                      Notifications
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
-                  <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleLogout}>
-                    <LogOut />
+                    <LogOut className="size-4" />
                     Log out
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -373,12 +252,13 @@ export default function Page({ children }: Props) {
         </SidebarFooter>
         <SidebarRail />
       </Sidebar>
+
       <SidebarInset>
-        <header className="sticky top-0 flex items-center justify-between p-4 border-b shrink-0 bg-background ">
+        <header className="sticky top-0 z-20 flex items-center justify-between p-4 border-b shrink-0 bg-background">
           <div className="flex items-center justify-between gap-2 ">
             <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="h-4 mr-2" />
-            <Breadcrumb>
+            {/* <Separator orientation="vertical" className="h-4 mr-2" /> */}
+            {/* <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
                   <BreadcrumbLink href="#">All Inboxes</BreadcrumbLink>
@@ -388,7 +268,7 @@ export default function Page({ children }: Props) {
                   <BreadcrumbPage>Inbox</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
-            </Breadcrumb>
+            </Breadcrumb> */}
           </div>
           <ThemeToggle />
         </header>

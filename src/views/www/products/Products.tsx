@@ -6,14 +6,12 @@ import {
     CardTitle,
   } from "@/components/ui/card";
   
-  import { Button } from "@/components/ui/button";
   import { DIRECTUS_API_KEY } from "@/constants/api";
   import { SkeletonCard } from "@/components/shared/skeleton-card";
   import { useEffect } from "react";
   import { useProducts } from "./useProducts";
   
   export function HomePage() {
-    console.log(<Button />)
     const { products, loading, fetchProduct } = useProducts();
   
     useEffect(() => {
