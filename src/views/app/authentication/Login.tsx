@@ -1,9 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -74,17 +69,7 @@ function Login() {
             >
               {loading ? "Loading..." : "Login"}
             </Button>
-
-            {/* <Button variant="outline" className="w-full" disabled>
-              Login with Google
-            </Button> */}
           </div>
-          {/* <div className="mt-4 text-sm text-center">
-            Don&apos;t have an account?
-            <a href="#" className="underline">
-              Sign up
-            </a>
-          </div> */}
 
           <div className="flex items-center justify-center gap-2 mt-6">
             <ThemeToggle />
